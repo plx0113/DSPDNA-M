@@ -72,7 +72,7 @@ Capabilities
 
 Why this matters
 DSPDNA-M does not load or replicate commercial plugins.
-Instead it visualizes the underlying signal math—filter curves, dynamics envelopes, harmonic patterns, and spatial diffusion—through open DSP modules written for Web Audio and WASM.
+Instead it visualizes the underlying signal math/filter curves, dynamics envelopes, harmonic patterns, and spatial diffusion, through open DSP modules written for Web Audio and WASM.
 Each placeholder module emulates the likely effect type, while the interface suggests real-world equivalents (for example “this behavior resembles Valhalla Room or Pro-R Plate”).
 This approach keeps playback universal, transparent, and accessible while focusing on how the sound behaves rather than which proprietary tool created it.
 
