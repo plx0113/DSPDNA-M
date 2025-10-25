@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SessionMap",
+  "type": "object",
+  "required": ["version", "project", "tracks", "master"],
+  "properties": {
+    "version": {"type": "string"},
+    "project": {
+      "type": "object",
+      "required": ["bpm", "time_signature", "sample_rate_hz"],
+      "properties": {
+        "title": {"type": "string"},
+        "bpm": {"type": "number"},
+        "time_signature": {"type": "string"},
+        "sample_rate_hz": {"type": "integer"},
+        "bit_depth": {"type": "integer"}
+      }
+    },
+    "routing": {
+      "type": "object",
+      "properties": {
+        "buses": {"type": "array", "items": {"type": "object", "required": ["id"], "properties": {"id": {"type": "string"}, "name": {"type": "string"}}}},
+        "returns": {"type": "array", "items": {"$ref": "#/$defs/trackLike"}},
+        "sends": {"type": "array", "items": {"type": "object", "required": ["from","to","amount_db"], "properties": {
+          "from": {"type": "string"},
+          "to": {"type": "string"},
+          "amount_db": {"type": "number"}
+        }}}
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/trackLike"}
+    },
+    "master": {"$ref": "#/$defs/trackLike"},
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "decoder_version": {"type": "string"},
+        "supervisor_version": {"type": "string"},
+        "notes": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "trackLike": {
+      "type": "object",
+      "required": ["id","devices"],
+      "properties": {
+        "id": {"type": "string"},
+        "type": {"type": "string"},
+        "fader_db": {"type": "number"},
+        "pan": {"type": "number"},
+        "bus": {"type": "string"},
+        "devices": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/device"}
+        },
+        "sends": {
+          "type": "array",
+          "items": {"type": "object", "required": ["target","amount_db"], "properties": {
+            "target": {"type": "string"},
+            "amount_db": {"type": "number"}
+          }}
+        },
+        "confidence": {"type": "number"},
+        "alternatives": {"type": "array", "items": {"$ref": "#/$defs/altDevice"}}
+      }
+    },
+    "device": {
+      "type": "object",
+      "required": ["class"],
+      "properties": {
+        "slot": {"type": "integer"},
+        "class": {"type": "string"},
+        "brand_equiv": {"type": "array", "items": {"type": "string"}},
+        "params": {
+          "oneOf": [
+            {"type": "array", "items": {"$ref": "#/$defs/paramKV"}},
+            {"type": "object"}  // allow nested shapes like eq_bands
+          ]
+        },
+        "automation": {"type": "array", "items": {"$ref": "#/$defs/automationPoint"}}
+      }
+    },
+    "paramKV": {
+      "type": "object",
+      "required": ["name","value"],
+      "properties": {
+        "name": {"type": "string"},
+        "value": {"type": ["number","string"]}
+      }
+    },
+    "automationPoint": {
+      "type": "object",
+      "required": ["time_s","value"],
+      "properties": {
+        "time_s": {"type": "number"},
+        "value": {"type": "number"}
+      }
+    },
+    "altDevice": {
+      "type": "object",
+      "required": ["class","confidence"],
+      "properties": {
+        "class": {"type": "string"},
+        "confidence": {"type": "number"}
+      }
+    }
+  }
+}
