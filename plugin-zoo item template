@@ -1,0 +1,16 @@
+# data/plugin_zoo/valhalla_room.yaml
+plugin: "Valhalla Room"
+type: "reverb_room"
+presets:
+  - name: "Large Room"
+    fingerprint:
+      er_spacing_ms: 7.5
+      diffusion_growth: 0.62
+      rt60_s: {low: 1.8, mid: 1.6, high: 1.2}
+      hf_damp_hz: 6500
+  - name: "Bright Chamber"
+    fingerprint:
+      er_spacing_ms: 5.2
+      diffusion_growth: 0.55
+      rt60_s: {low: 1.5, mid: 1.3, high: 1.1}
+      hf_damp_hz: 9000
