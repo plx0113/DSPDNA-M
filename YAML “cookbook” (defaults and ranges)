@@ -1,0 +1,110 @@
+# docs/cookbook.yaml
+version: 1.0
+targets:
+  loudness:
+    edm:
+      master_lufs_i: [-7.5, -9.5]
+      headroom_db_true_peak: [-1.2, -0.3]
+    hiphop_trap:
+      master_lufs_i: [-8.5, -11.0]
+      headroom_db_true_peak: [-1.5, -0.5]
+    pop:
+      master_lufs_i: [-9.0, -11.5]
+      headroom_db_true_peak: [-1.0, -0.3]
+    rock:
+      master_lufs_i: [-9.5, -12.0]
+      headroom_db_true_peak: [-1.5, -0.5]
+
+stems:
+  vocals:
+    common:
+      high_pass_hz: [70, 120]
+      de_ess_hz: [5500, 8000]
+      widener_width_percent: [0, 25]
+    chains:
+      - name: "modern_pop_vox"
+        devices:
+          - {class: "hp_lp_filter", params: {type: "hp", f_hz: 90, slope_db_per_oct: 12}}
+          - class: "eq_parametric"
+            bands:
+              - {type: "bell", f_hz: 300, gain_db: -2.0, q: 1.2}
+              - {type: "bell", f_hz: 3100, gain_db: +2.0, q: 1.0}
+          - {class: "de_esser", params: {center_hz: 7000, bandwidth_q: 1.0, depth_db: 4.0, detection: "split"}}
+          - {class: "compressor_fet_fast", params: {threshold_db: -18, ratio: 4.0, attack_ms: 10, release_ms: 80}}
+          - {class: "saturation_tape", params: {drive_db: 3.0, mix_percent: 30}}
+          - {class: "widener_ms", params: {width_percent: 15}}
+        sends:
+          - {bus: "VerbPlate", amount_db: -12}
+          - {bus: "DelayMono", amount_db: -18}
+      - name: "rap_vox_intimate"
+        devices:
+          - {class: "hp_lp_filter", params: {type: "hp", f_hz: 80, slope_db_per_oct: 12}}
+          - class: "eq_parametric"
+            bands:
+              - {type: "bell", f_hz: 200, gain_db: -1.5, q: 1.0}
+              - {type: "bell", f_hz: 5000, gain_db: +1.5, q: 1.0}
+          - {class: "de_esser", params: {center_hz: 6500, bandwidth_q: 1.0, depth_db: 3.0, detection: "wideband"}}
+          - {class: "compressor_vca_clean", params: {threshold_db: -14, ratio: 3.0, attack_ms: 20, release_ms: 120}}
+        sends:
+          - {bus: "VerbPlate", amount_db: -18}
+
+  drums_bus:
+    chains:
+      - name: "edm_glue"
+        devices:
+          - class: "eq_parametric"
+            bands:
+              - {type: "low_shelf", f_hz: 80, gain_db: +1.5, q: 0.7}
+              - {type: "bell", f_hz: 250, gain_db: -1.5, q: 1.2}
+          - {class: "compressor_vca_clean", params: {threshold_db: -12, ratio: 2.0, attack_ms: 30, release_ms: 100}}
+          - {class: "saturation_console", params: {drive_db: 2.0}}
+      - name: "trap_slap"
+        devices:
+          - {class: "transient_shaper", params: {attack_db: +1.5, sustain_db: -0.5}}
+          - {class: "compressor_fet_fast", params: {threshold_db: -16, ratio: 4.0, attack_ms: 5, release_ms: 60}}
+
+  kick:
+    chains:
+      - name: "clean_kick"
+        devices:
+          - class: "eq_parametric"
+            bands:
+              - {type: "bell", f_hz: 60, gain_db: +2.0, q: 1.2}
+              - {type: "bell", f_hz: 250, gain_db: -3.0, q: 1.2}
+          - {class: "clipper_soft", params: {ceiling_db: -1.0, softness: 0.3}}
+
+  bass:
+    chains:
+      - name: "sidechained_bass"
+        devices:
+          - class: "eq_parametric"
+            bands:
+              - {type: "bell", f_hz: 80, gain_db: -2.0, q: 1.0}
+          - {class: "compressor_vca_clean", params: {threshold_db: -12, ratio: 3.0, attack_ms: 25, release_ms: 120, hp_sidechain_hz: 120, sidechain_src: "kick"}}
+          - {class: "saturation_tube", params: {drive_db: 4.0, mix_percent: 40}}
+
+  guitars:
+    chains:
+      - name: "rhythm_crunch"
+        devices:
+          - class: "eq_parametric"
+            bands:
+              - {type: "high_shelf", f_hz: 6000, gain_db: +2.0, q: 0.7}
+              - {type: "bell", f_hz: 3000, gain_db: -1.5, q: 1.5}
+          - {class: "compressor_vari_mu", params: {threshold_db: -10, ratio: 2.0, attack_ms: 30, release_ms: 200}}
+
+  mixbus:
+    chains:
+      - name: "pop_glue"
+        devices:
+          - {class: "compressor_vca_clean", params: {threshold_db: -6, ratio: 2.0, attack_ms: 30, release_ms: 100}}
+          - {class: "saturation_console", params: {drive_db: 1.5}}
+
+  master:
+    chains:
+      - name: "streaming_ready"
+        devices:
+          - class: "eq_parametric"
+            bands:
+              - {type: "tilt", f_hz: 1000, gain_db: +0.8, q: 0.7}
+          - {class: "limiter", params: {ceiling_db: -0.9, release_ms: 100}}
