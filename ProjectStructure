@@ -1,0 +1,26 @@
+decoder/
+  data/
+    stems/                  # curated dry stems
+    mixfactory/             # session generators
+    plugin_zoo/             # fingerprints + metadata
+    cookbook/               # YAML rules and priors
+  models/
+    decoder_core.py         # class inference + param regressors
+    supervisor.py           # correction model
+    zoo_matchers.py         # nearest-neighbor plugin equivalents
+  dsp/
+    eq.py, comp.py, rev.py  # differentiable surrogates
+    losses.py               # multires STFT, loudness, IR metrics
+  schema/
+    session_map.jsonschema  # validation
+  train/
+    train_decoder.py
+    train_supervisor.py
+    evaluate.py
+  export/
+    to_reaper.py            # optional DAW export
+    to_json.py
+  docs/
+    metrics.md
+    ontology.md
+    cookbook.md
