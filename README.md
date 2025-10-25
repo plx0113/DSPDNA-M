@@ -14,7 +14,7 @@ Engineering DNA (DSP)	EQ, compression, saturation, spatial effects, routing, aut
 
 Musical DNA (Theory)	Chords, key, melody, rhythm, motifs, song form	Symbolic music map (key, phrases, progressions)
 
-These layers combine into a unified audio genome — a representation of both how a song sounds and what it expresses.
+These layers combine into a unified audio genome, a representation of both how a song sounds and what it expresses.
 
 Core Architecture
 
@@ -29,8 +29,6 @@ Plugin Zoo	Library of learned plugin “fingerprints” for probabilistic plugin
 
 Music Analyzer	Symbolic engine that performs chord, melody, rhythm, and form extraction.
 
-
-⸻
 
 Example Output
 
