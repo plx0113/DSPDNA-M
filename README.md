@@ -1,6 +1,6 @@
 DSPDNA-M
 
-DSPDNA-M (Digital Signal Processing + Musical DNA) is a research framework and AI system designed to decode the complete genetic structure of music — uniting the engineering and compositional layers that define every track.
+DSPDNA-M (Digital Signal Processing + Musical DNA) is a research framework and AI system designed to decode the complete genetic structure of music uniting the engineering and compositional layers that define every track.
 
 It reads both the sound design DNA (how the audio was shaped) and the musical DNA (how it was written, arranged, and performed), producing a transparent, structured description of any song.
 
