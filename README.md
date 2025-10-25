@@ -1,4 +1,4 @@
-It was all a dream - Notorious BIG
+"It was all a dream" - Notorious B.I.G.
 
 DSPDNA-M
 
