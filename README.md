@@ -7,13 +7,8 @@ It produces a machine-readable dataset describing both the engineering decisions
 
 This document explains what DSPDNA-M outputs, how the system reasons about plugins and structure, and how the cloud playback interface provides actionable insight into the makeup of finished music.
 
-⸻
-
-Tagline
-
 Every song has DNA. DSPDNA-M teaches AI to read it, visualize it, and let you explore a plausible, playable reconstruction designed for learning and inspiration.
 
-⸻
 
 Two-part product output
 
@@ -61,8 +56,6 @@ DSPDNA-M reports probabilistic equivalents such as “reverb resembles Valhalla 
 That means the inferred impulse response and decay shape are similar, not that the original session used that plugin.
 Time and automation are also modeled. Example: “Valhalla-like reverb predelay 15 ms between 0:45 and 1:30, send automation rising from −18 dB to −6 dB across six bars.”
 
-⸻
-
 2) Human layer (read-only cloud playback)
 
 A web interface that reconstructs a plausible session layout for playback and study. It is commercial-DAW agnostic and entirely read-only. The purpose is exploration and idea generation, not editing.
@@ -83,8 +76,6 @@ Instead it visualizes the underlying signal math—filter curves, dynamics envel
 Each placeholder module emulates the likely effect type, while the interface suggests real-world equivalents (for example “this behavior resembles Valhalla Room or Pro-R Plate”).
 This approach keeps playback universal, transparent, and accessible while focusing on how the sound behaves rather than which proprietary tool created it.
 
-⸻
-
 How DSPDNA-M approaches the black-box problem
 
 Reality check
@@ -102,8 +93,6 @@ DSPDNA-M avoids alignment with any single workstation.
 Playback and visualization occur in the web interface using neutral DSP math and standard ontologies.
 No DAW exports are generated.
 
-⸻
-
 Product architecture
 	•	Core Decoder performs separation, feature extraction, differentiable DSP, and musical analysis
 	•	Plugin Zoo stores embeddings and preset fingerprints for probabilistic matching
@@ -112,14 +101,10 @@ Product architecture
 	•	Cloud Player runs on React, Web Audio, and WASM for playback, visualization, and overlays
 	•	API manages uploads, JSON retrieval, and sharing of interactive playback links
 
-⸻
-
 Example of human insight in the interface
 	•	“Lead vocal high-pass at 100 Hz, bell boost 3.2 kHz +2.5 dB Q≈1.1, compression 4:1 threshold −17 dB with 4 dB reduction in the chorus, reverb similar to Valhalla Room Large Room predelay 15 ms RT60 1.3 s with send automation +12 dB through the chorus.”
 	•	“Kick low shelf 60 Hz +2 dB, transient shaping present, short stereo widen on hi-hats bars 9-16.”
 	•	“Master loudness ≈ −9.5 LUFS, genre pop/indie, probable DAW family Ableton or Reaper though playback remains neutral.”
-
-⸻
 
 Metrics and release criteria
 
@@ -130,14 +115,10 @@ Release benchmarks include:
 	•	Calibration error < 0.08
 	•	False device insertions < 5 percent
 
-⸻
-
 Ethics and intellectual property
 	•	DSPDNA-M reports equivalence and confidence only; it never reproduces proprietary plugin code.
 	•	Sample and hook detection are educational and research tools.
 	•	All dataset contributions follow opt-in and anonymization standards.
-
-⸻
 
 Repository layout
 
@@ -165,9 +146,6 @@ DSPDNA-M/
  ├── README.md
  └── LICENSE
 
-
-⸻
-
 Roadmap
 
 MVP
@@ -182,14 +160,6 @@ Next
 Future
 	•	Real-time mathematical visualizations of frequency shaping and dynamic behavior
 	•	Collaborative playback rooms for team analysis and idea generation
-
-⸻
-
-License
-
-Released under the Apache License 2.0.
-
-⸻
 
 Summary
 
