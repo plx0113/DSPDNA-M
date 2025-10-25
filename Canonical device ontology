@@ -1,0 +1,127 @@
+# schema/ontology.yaml
+version: 1.0
+device_classes:
+
+  eq_parametric:
+    params:
+      - {name: "bands", type: "array[eq_band]"}  # see eq_band below
+    subtypes: [eq_minphase, eq_linear]           # optional flavor tags
+
+  eq_band:  # reusable struct
+    fields:
+      - {name: "type", enum: [bell, low_shelf, high_shelf, low_cut, high_cut, notch]}
+      - {name: "f_hz", type: float}
+      - {name: "gain_db", type: float}           # not used for pure cuts
+      - {name: "q", type: float}                 # bandwidth control
+      - {name: "slope_db_per_oct", type: float, optional: true}
+
+  compressor_fet_fast:
+    params:
+      - {name: "threshold_db", type: float}
+      - {name: "ratio", type: float}             # e.g., 4.0 means 4:1
+      - {name: "attack_ms", type: float}
+      - {name: "release_ms", type: float}
+      - {name: "knee_db", type: float, optional: true}
+      - {name: "makeup_db", type: float, optional: true}
+      - {name: "sidechain_src", type: string, optional: true}
+      - {name: "hp_sidechain_hz", type: float, optional: true}
+      - {name: "avg_gr_db", type: float, optional: true}
+
+  compressor_opto_slow:
+    params: [as: compressor_fet_fast]            # same param names
+
+  compressor_vca_clean:
+    params: [as: compressor_fet_fast]
+
+  compressor_vari_mu:
+    params: [as: compressor_fet_fast]
+
+  de_esser:
+    params:
+      - {name: "center_hz", type: float}
+      - {name: "bandwidth_q", type: float}
+      - {name: "depth_db", type: float}
+      - {name: "detection", enum: [wideband, split]}
+
+  limiter:
+    params:
+      - {name: "ceiling_db", type: float}
+      - {name: "lookahead_ms", type: float, optional: true}
+      - {name: "release_ms", type: float, optional: true}
+      - {name: "lufs_integrated", type: float, optional: true}
+
+  saturation_tape:
+    params:
+      - {name: "drive_db", type: float}
+      - {name: "bias", type: float, optional: true}
+      - {name: "mix_percent", type: float, optional: true}
+
+  saturation_tube:
+    params: [as: saturation_tape]
+
+  saturation_console:
+    params: [as: saturation_tape]
+
+  clipper_soft:
+    params:
+      - {name: "ceiling_db", type: float}
+      - {name: "softness", type: float}
+
+  transient_shaper:
+    params:
+      - {name: "attack_db", type: float}
+      - {name: "sustain_db", type: float}
+      - {name: "detect_hz", type: float, optional: true}
+
+  reverb_plate:
+    params:
+      - {name: "predelay_ms", type: float}
+      - {name: "rt60_s", type: float}
+      - {name: "hf_damp_hz", type: float}
+      - {name: "mix_percent", type: float}
+
+  reverb_room:
+    params: [as: reverb_plate]
+
+  reverb_hall:
+    params: [as: reverb_plate]
+
+  delay_mono:
+    params:
+      - {name: "time_ms", type: float}
+      - {name: "feedback_percent", type: float}
+      - {name: "mix_percent", type: float}
+      - {name: "hp_hz", type: float, optional: true}
+      - {name: "lp_hz", type: float, optional: true}
+
+  delay_pingpong:
+    params: [as: delay_mono]
+
+  widener_ms:
+    params:
+      - {name: "width_percent", type: float}
+      - {name: "mid_trim_db", type: float, optional: true}
+      - {name: "side_trim_db", type: float, optional: true}
+
+  chorus:
+    params:
+      - {name: "rate_hz", type: float}
+      - {name: "depth_percent", type: float}
+      - {name: "mix_percent", type: float}
+
+  flanger:
+    params: [as: chorus]
+
+  utility_gain:
+    params:
+      - {name: "gain_db", type: float}
+
+  utility_pan:
+    params:
+      - {name: "pan_percent", type: float}       # -100 L to +100 R
+
+  hp_lp_filter:
+    params:
+      - {name: "type", enum: [hp, lp]}
+      - {name: "f_hz", type: float}
+      - {name: "slope_db_per_oct", type: float}
