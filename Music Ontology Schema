@@ -1,0 +1,19 @@
+"music": {
+  "key_signature": "A minor",
+  "tempo_bpm": 128,
+  "time_signature": "4/4",
+  "sections": [
+    {"name":"intro","start_s":0,"end_s":12},
+    {"name":"verse1","start_s":12,"end_s":45},
+    {"name":"chorus1","start_s":45,"end_s":75}
+  ],
+  "chord_progressions":[
+    {"section":"chorus1","progression":["Am","F","C","G"]}
+  ],
+  "melodic_motifs":[
+    {"id":"motifA","start_s":47,"end_s":52,"contour":"↑↑↓","instrument":"vocal"}
+  ],
+  "rhythmic_patterns":[
+    {"instrument":"drums","pattern":"kick-snare-kick-kick-snare","bars":4}
+  ]
+}
